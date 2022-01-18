@@ -1,6 +1,5 @@
 ---
-
-name: Packer
+name: Build-app-image
 
 on:
   push:
@@ -8,10 +7,12 @@ on:
       - main
 
 jobs:
-  packer:
+  build-app-image:
     runs-on: ubuntu-latest
-    - run: 'sudo apt-get install -y ansible'
-      shell: bash
+    steps:
+      - uses: actions/checkout@v2
+      - run: 'sudo apt-get install -y ansible'
+        shell: bash
     # NB: will only work with ubuntu 20.04
     - uses: myci-actions/add-deb-repo@10
       with:
