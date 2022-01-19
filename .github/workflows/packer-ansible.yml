@@ -25,5 +25,4 @@ jobs:
           command: validate
           arguments: -syntax-only
           target: packer/packer.json
-      - run: 'packer init .'
       - run: 'packer build packer/packer.json'
