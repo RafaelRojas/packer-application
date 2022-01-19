@@ -1,31 +1,29 @@
 ---
 name: Build-app-image
-
 on:
   push:
     branches:
       - main
-
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: install ansible
       - run: 'sudo apt-get install -y ansible'
         shell: bash
-    # NB: will only work with ubuntu 20.04
-    - uses: myci-actions/add-deb-repo@10
-      with:
-        repo: deb [arch=amd64] https://apt.releases.hashicorp.com focal main
-        keys-asc: https://apt.releases.hashicorp.com/gpg
-        update: true
-        install: packer
-    - name: Validate Template
-      uses: hashicorp/packer-github-actions@master
-      with:
-        command: validate
-        arguments: -syntax-only
-        target: packer/packer.json
-    - run: 'packer init .'
-    - run: 'packer build packer/packer.json'
+      - name: Check out repository code
+        uses: actions/checkout@v2
+      - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
+      - uses: myci-actions/add-deb-repo@10
+        with:
+          repo: deb [arch=amd64] https://apt.releases.hashicorp.com focal main
+          keys-asc: https://apt.releases.hashicorp.com/gpg
+          update: true
+          install: packer
+      - name: Validate Template
+        uses: hashicorp/packer-github-actions@master
+        with:
+          command: validate
+          arguments: -syntax-only
+          target: infra/packer
+      - run: 'packer init .'
+      - run: 'packer build packer/packer.json'
