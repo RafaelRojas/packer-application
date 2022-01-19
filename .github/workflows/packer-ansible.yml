@@ -24,6 +24,6 @@ jobs:
         with:
           command: validate
           arguments: -syntax-only
-          target: infra/packer
+          target: packer/packer.json
       - run: 'packer init .'
       - run: 'packer build packer/packer.json'
