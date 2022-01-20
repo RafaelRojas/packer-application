@@ -8,8 +8,6 @@
       {
         "type": "amazon-ebs",
         "region": "{{user `aws_region`}}",
-        "access_key": "{{user `aws_access_key`}}",
-        "secret_key": "{{user `aws_secret_key`}}",
         "source_ami_filter": {
           "filters": {
             "name": "ubuntu/images/hvm-ssd/ubuntu-focal-20.04-amd64-server-*"
@@ -20,7 +18,7 @@
         "instance_type": "t2.micro",
         "ssh_username": "ubuntu",
         "encrypt_boot": true,
-        "ami_name": "app-server- ",
+        "ami_name": "app-server-image",
         "ami_description": "App server for Big APP, based on Ubuntu 20.04LTS",
         "tags": {
           "Name": "app-server-{{timestamp}}",
