@@ -7,7 +7,13 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    steps:
+    steps:  
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          AWS_DEFAULT_REGION: ${{ secrets.AWS_REGION }}
+          AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       - run: 'sudo apt-get install -y ansible'
         shell: bash
       - name: Check out repository code
@@ -26,8 +32,4 @@ jobs:
           arguments: -syntax-only
           target: packer/packer.json
       - name: Packer build
-        env:
-          AWS_DEFAULT_REGION: us-west-2
-          AWS_ACCESS_KEY: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}    
         run: 'packer build packer/packer.json'
