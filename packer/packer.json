@@ -6,7 +6,13 @@
     },
     "builders": [
       {
+        "ami_name": "app-server-image",
+        "ami_description": "App server for Big APP, based on Ubuntu 20.04LTS",
+        "force_deregister": "true",
+        "force_delete_snapshot": "true",
         "type": "amazon-ebs",
+        "access_key": "{{ user `AWS_ACCESS_KEY` }}",
+        "secret_key": "{{ user `AWS_SECRET_ACCESS_KEY` }}",
         "region": "{{user `aws_region`}}",
         "source_ami_filter": {
           "filters": {
@@ -18,8 +24,6 @@
         "instance_type": "t2.micro",
         "ssh_username": "ubuntu",
         "encrypt_boot": true,
-        "ami_name": "app-server-image",
-        "ami_description": "App server for Big APP, based on Ubuntu 20.04LTS",
         "tags": {
           "Name": "app-server-{{timestamp}}",
           "ubuntu:release": "20.04 LTS",
