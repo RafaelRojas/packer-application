@@ -1,6 +1,6 @@
 {
     "variables": {
-      "aws_access_key": "{{env `AWS_ACCESS_KEY_ID`}}",
+      "aws_access_key_id": "{{env `AWS_ACCESS_KEY_ID`}}",
       "aws_secret_key": "{{env `AWS_SECRET_ACCESS_KEY`}}",
       "aws_region": "{{env `AWS_DEFAULT_REGION`}}"
     },
@@ -11,7 +11,7 @@
         "force_deregister": "true",
         "force_delete_snapshot": "true",
         "type": "amazon-ebs",
-        "access_key": "{{ user `AWS_ACCESS_KEY` }}",
+        "access_key": "{{ user `AWS_ACCESS_KEY_ID` }}",
         "secret_key": "{{ user `AWS_SECRET_ACCESS_KEY` }}",
         "region": "{{user `aws_region`}}",
         "source_ami_filter": {
